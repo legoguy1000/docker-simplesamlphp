@@ -13,7 +13,7 @@ RUN curl -Lo /var/simplesamlphp.tar.gz https://github.com/simplesamlphp/simplesa
  && touch /var/simplesamlphp/cert/breadcrumb \
  && touch /var/simplesamlphp/log/breadcrumb
 
-RUN mkdir -p /var/lib/php/session/ && chmod a+t /var/lib/php/session/
+RUN mkdir -p /var/lib/php/session/ && chmod -R 777 /var/lib/php/session/
 
 
 # Install php pre-reqs
