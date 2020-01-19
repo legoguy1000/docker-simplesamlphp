@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv /bin/bash
+#!/bin/bash
 
 #Default runtime variables if none are supplied at Docker container creation
 
@@ -58,45 +58,6 @@ POSTFIX_MYORIGIN=${POSTFIX_MYORIGIN:='$myhostname'}
 POSTFIX_RELAYHOST=${POSTFIX_RELAYHOST:='$mydomain'}
 POSTFIX_INETINTERFACES=${POSTFIX_INETINTERFACES:='localhost'}
 POSTFIX_MYDESTINATION=${POSTFIX_MYDESTINATION:=}
-
-if [ "$DOCKER_REDIRECTLOGS" = "true" ]; then
-  echo "[$0] DOCKER_REDIRECTLOGS was set to 'true', so setting CONFIG_LOGGINGHANDLER to 'file'"
-  CONFIG_LOGGINGHANDLER=file
-
-  if [ "$CONFIG_LOGFILE" != "simplesamlphp.log" ]; then
-    echo "[$0] [WARN] DOCKER_REDIRECTLOGS was set to true, but CONFIG_LOGFILE was set away from the default. It makes no sense to do this as logs are redirected to a pipe."
-    echo "[$0] If a simplesamlphp logfile is desired instead of docker logs, set DOCKER_REDIRECTLOGS to 'false' and volume mount the logs directory to the host."
-    echo "[$0] Pausing 5 seconds due to above warning."
-    sleep 5
-  fi
-  if [ -z "$(ls -A /var/simplesamlphp/log/)" ]; then
-    if [ "$DOCKER_REDIRECTLOGS" = "true" ]; then
-      echo "[$0] [WARN] DOCKER_REDIRECTLOGS is set to true but the log directory is volume mounted. It makes no sense to do this as logs are redirected to a pipe."
-      echo "[$0] If a simplesamlphp logfile is desired instead of docker logs, set DOCKER_REDIRECTLOGS to 'false'."
-      echo "[$0] Pausing 5 seconds due to above warning."
-      sleep 5
-    fi
-  fi
-
-  echo "[$0] Check for TTY"
-  if [ ! -e /dev/console ]; then
-    echo "[$0] [WARN] DOCKER_REDIRECTLOGS is set to true but no TTY is available for console."
-    echo "[$0] SimpleSAMLphp logs will NOT redirect. Destroy and re-run with -t to allocate a TTY."
-    echo "[$0] Pausing 5 seconds due to above warning."
-    sleep 5
-  else
-    echo "[$0] Creating symlink $CONFIG_LOGFILE targeting /dev/console to redirect logs"
-    ln -sf /dev/console /var/simplesamlphp/log/$CONFIG_LOGFILE
-    chown nginx:nginx /var/simplesamlphp/log/$CONFIG_LOGFILE
-  fi
-fi
-
-if [ "$CONFIG_LOGGINGHANDLER" = "file" ] && [ ! -z "$(ls -A /var/simplesamlphp/log/)" ] && [ ! -L /var/simplesamlphp/log/$CONFIG_LOGFILE ]; then
-  echo "[$0] [WARN] CONFIG_LOGGINGHANDLER is set to 'file'  but the log directory is not volume mounted."
-  echo "[$0] [WARN] This will cause the container to grow with a logfile and is in most cases very undesirable."
-  echo "[$0] Pausing 5 seconds due to above warning."
-  sleep 5
-fi
 
 #Only set memcache vars if storetype is memcache
 if [ "$CONFIG_STORETYPE" == "memcache" ]; then
@@ -334,7 +295,7 @@ fi
 
 #Only configure redundant memcache if storetype is set to memcache
 if [ "$CONFIG_STORETYPE" == "memcache" ]; then
-  sed -i "/    'memcache_store.servers' => \[/{n;N;N;d}" /var/simplesamlphp/config/config.php 
+  sed -i "/    'memcache_store.servers' => \[/{n;N;N;d}" /var/simplesamlphp/config/config.php
   sed -i "s|    'memcache_store.servers' => \[|$CONFIG_MEMCACHESTORESERVERS|g" /var/simplesamlphp/config/config.php
   sed -i "s|'memcache_store.prefix' => null|'memcache_store.prefix' => '$CONFIG_MEMCACHESTOREPREFIX'|g" /var/simplesamlphp/config/config.php
   if [ "$CONFIG_MEMCACHESTOREPREFIX" == "null" ]; then
@@ -345,8 +306,6 @@ if [ "$CONFIG_STORETYPE" == "memcache" ]; then
     sed -i "s|'memcache_store.prefix' => null|'memcache_store.prefix' => $CONFIG_MEMCACHESTOREPREFIX|g" /var/simplesamlphp/config/config.php
   fi
 fi
-
-chown nginx:nginx /var/simplesamlphp/log/
 
 touch /var/simplesamlphp/config/.dockersetupdone
 
