@@ -75,13 +75,13 @@ if [ -z "$(ls -A /var/simplesamlphp/)" ]; then
 else
   if [ -z "$(ls -A /var/simplesamlphp/attributemap/)" ]; then
     echo "[$0] attributemap directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/attributemap > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/attributemap' > /dev/null
     mv /var/simplesamlphp-1.*/attributemap/* /var/simplesamlphp/attributemap/
     echo "[$0] Seed complete. Directory attributemap will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/bin/)" ]; then
     echo "[$0] bin directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/bin > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/bin' > /dev/null
     mv /var/simplesamlphp-1.*/bin/* /var/simplesamlphp/bin/
     echo "[$0] Seed complete. Directory bin will not be part of future upgrades and will need upgraded manually."
   fi
@@ -93,19 +93,19 @@ else
   fi
   if [ -z "$(ls -A /var/simplesamlphp/config/)" ]; then
     echo "[$0] config directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/config > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/config' > /dev/null
     mv /var/simplesamlphp-1.*/config/* /var/simplesamlphp/config/
     echo "[$0] Seed complete. Directory config will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/config-templates/)" ]; then
     echo "[$0] config-templates directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/config-templates > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/config'-templates > /dev/null
     mv /var/simplesamlphp-1.*/config-templates/* /var/simplesamlphp/config-templates/
     echo "[$0] Seed complete. Directory config-templates will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/dictionaries/)" ]; then
     echo "[$0] dictionaries directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/dictionaries > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/dictionaries' > /dev/null
     mv /var/simplesamlphp-1.*/dictionaries/* /var/simplesamlphp/dictionaries/
     echo "[$0] Seed complete. Directory dictionaries will not be part of future upgrades and will need upgraded manually."
     echo "[$0] [WARN] usage of dictionaries are deprecated in 1.15.0 and will be removed in 2.0. Use locales instead."
@@ -114,79 +114,79 @@ else
   fi
   if [ -z "$(ls -A /var/simplesamlphp/docs/)" ]; then
     echo "[$0] docs directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/docs > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/docs' > /dev/null
     mv /var/simplesamlphp-1.*/docs/* /var/simplesamlphp/docs/
     echo "[$0] Seed complete. Directory docs will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/extra/)" ]; then
     echo "[$0] extra directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/extra > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/extra' > /dev/null
     mv /var/simplesamlphp-1.*/extra/* /var/simplesamlphp/extra/
     echo "[$0] Seed complete. Directory extra will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/lib/)" ]; then
     echo "[$0] lib directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/lib > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/lib' > /dev/null
     mv /var/simplesamlphp-1.*/lib/* /var/simplesamlphp/lib/
     echo "[$0] Seed complete. Directory lib will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/locales/)" ]; then
     echo "[$0] locales directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/locales > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/locales' > /dev/null
     mv /var/simplesamlphp-1.*/locales/* /var/simplesamlphp/locales/
     echo "[$0] Seed complete. Directory locales will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/metadata/)" ]; then
     echo "[$0] metadata directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/metadata > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/metadata' > /dev/null
     mv /var/simplesamlphp-1.*/metadata/* /var/simplesamlphp/metadata/
     echo "[$0] Seed complete. Directory metadata will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/metadata-templates/)" ]; then
     echo "[$0] metadata-templates directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/metadata-templates > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/metadata'-templates > /dev/null
     mv /var/simplesamlphp-1.*/metadata-templates/* /var/simplesamlphp/metadata-templates/
     echo "[$0] Seed complete. Directory metadata-templates will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/modules/)" ]; then
     echo "[$0] modules directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/modules > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/modules' > /dev/null
     mv /var/simplesamlphp-1.*/modules/* /var/simplesamlphp/modules/
     echo "[$0] Seed complete. Directory modules will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/schemas/)" ]; then
     echo "[$0] schemas directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/schemas > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/schemas' > /dev/null
     mv /var/simplesamlphp-1.*/schemas/* /var/simplesamlphp/schemas/
     echo "[$0] Seed complete. Directory schemas will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/src/)" ]; then
     echo "[$0] src directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/src > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/src' > /dev/null
     mv /var/simplesamlphp-1.*/src/* /var/simplesamlphp/src/
     echo "[$0] Seed complete. Directory src will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/templates/)" ]; then
     echo "[$0] templates directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/templates > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/templates' > /dev/null
     mv /var/simplesamlphp-1.*/templates/* /var/simplesamlphp/templates/
     echo "[$0] Seed complete. Directory templates will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/tests/)" ]; then
     echo "[$0] tests directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/tests > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/tests' > /dev/null
     mv /var/simplesamlphp-1.*/tests/* /var/simplesamlphp/tests/
     echo "[$0] Seed complete. Directory tests will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/vendor/)" ]; then
     echo "[$0] vendor directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/vendor > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/vendor' > /dev/null
     mv /var/simplesamlphp-1.*/vendor/* /var/simplesamlphp/vendor/
     echo "[$0] Seed complete. Directory vendor will not be part of future upgrades and will need upgraded manually."
   fi
   if [ -z "$(ls -A /var/simplesamlphp/www/)" ]; then
     echo "[$0] www directory seems to be Docker volume mounted as it is empty. Seeding."
-    tar xzvf /var/simplesamlphp.tar.gz --wildcards /var/simplesamlphp*/www > /dev/null
+    tar xzvf /var/simplesamlphp.tar.gz --wildcards 'simplesamlphp*/www' > /dev/null
     mv /var/simplesamlphp-1.*/www/* /var/simplesamlphp/www/
     echo "[$0] Seed complete. Directory www will not be part of future upgrades and will need upgraded manually."
   fi
