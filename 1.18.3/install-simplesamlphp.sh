@@ -211,8 +211,6 @@ if [ "$MTA_NULLCLIENT" == "true" ]; then
   echo "[$0] Configured null client."
 elif [ "$MTA_NULLCLIENT" == "false" ]; then
   echo "[$0] MTA_NULLCLIENT was set to false, removing postfix and mariadb-libs"
-  yum remove -y postfix mariadb-libs > /dev/null
-  rm -rf /etc/services.d/postfix/
 else
   echo "[$0] [WARN] Unsupported value for MTA_NULLCLIENT. Expecting 'true' or 'false', but was set to '$MTA_NULLCLIENT'.
   echo "[$0] To avoid this warning in the future, set MTA_NULLCLIENT to a valid value. Doing nothing.
