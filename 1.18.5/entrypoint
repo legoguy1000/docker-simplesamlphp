@@ -2,7 +2,7 @@
 set -e
 
 if [ ! -f "/ssl_certs/cert.crt" ] || [ ! -f "/ssl_certs/cert.key" ]; then
-	openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -subj '/CN=frc-portal' -out /ssl_certs/cert.crt -keyout /ssl_certs/cert.key
+	openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -subj '/CN=simplesamlphp' -out /ssl_certs/cert.crt -keyout /ssl_certs/cert.key
 fi
 
 /var/install-simplesamlphp.sh
